@@ -1,64 +1,64 @@
-# Social Media Content Analyzer
+﻿# Social Media Content Analyzer
 
-A minimal web app to extract text from PDFs and images (OCR) and provide simple, local engagement analysis.
+Lightweight React + Vite application that extracts text from PDFs and images (via OCR) and provides deterministic, local engagement analysis (word/sentence counts and simple editorial suggestions).
 
-Features:
-- PDF parsing using pdf.js (in-browser)
-- OCR for images using tesseract.js (in-browser)
-- Simple analysis: word/sentence counts and basic suggestions
+Repository: https://github.com/sujitchavda01/social-media-content-analyzer
 
-Why in-browser?
-- Keeps the project simple and within GitHub Pages hosting
-- No backend required, easier to submit and maintain
+Status: Functional locally — no server required. (If you want hosting, see the Deployment section.)
 
-Run locally
+## Features
+- PDF parsing (in-browser) using `pdfjs-dist` (legacy build).
+- Image OCR (in-browser) using `tesseract.js` with progress reporting.
+- Local analysis: word/sentence counts, average sentence length, and simple improvement suggestions.
+- Drag-and-drop and file picker interfaces for both PDFs and images.
+- Accessible UI: keyboard-friendly dropzone, loading overlays, and error notices.
 
+## Tech Stack
+- React + Vite
+- `pdfjs-dist` for PDF extraction
+- `tesseract.js` for client-side OCR
+- Plain CSS for styling
+
+## Quick start (local)
 1. Install dependencies:
 
-   npm install
-
-2. Start dev server:
-
-   npm run dev
-
-Build
-
-  npm run build
-
-Notes
-- Keep branch as `main` and make the repository public for submission.
-- Do not commit node_modules or secret files. Use .gitignore as needed.
-
-Note: AI-based suggestions and cloud inference calls have been removed from this project.
-The application now provides local, deterministic analysis (word/sentence counts and formatting suggestions) without requiring an external AI service.
-
-Running the server proxy locally
---------------------------------
-1. Change to the `server` folder and install dependencies:
-
 ```powershell
-cd server
 npm install
 ```
 
-2. Create `server/.env` from `server/.env.example` and add your `GEMINI_KEY`.
-
-3. Create `server/.env` from `server/.env.example` and add your Hugging Face server-side token as `HUGGING_FACE_KEY`.
-
-4. Start the proxy:
+2. Run dev server:
 
 ```powershell
-npm start
+npm run dev
 ```
 
-5. In your front-end `.env`, set `VITE_USE_SERVER_PROXY=true` and `VITE_SERVER_PROXY_URL=http://localhost:4000` then restart the dev server.
+3. Build for production:
 
-Minimal setup (only one key required)
-------------------------------------
-If you want the simplest workflow where you only provide a single API key:
+```powershell
+npm run build
+```
 
-1. Put your Hugging Face API key in the server's `.env` as `HUGGING_FACE_KEY` (copy `server/.env.example` to `server/.env` and edit).
-2. Keep the front-end `.env` as shown in the project root `.env.example` (the project defaults to the local proxy `http://localhost:4000`).
-3. Start the proxy (`cd server && npm start`) and then start the front-end (`npm run dev`).
+## Project structure (key files)
+- `src/features/PDFExtractor.jsx` — PDF upload, extraction, and first-page preview
+- `src/features/ImageOCR.jsx` — Image upload and OCR pipeline
+- `src/features/analysis.jsx` — Deterministic analysis and suggestions
+- `src/components/LoadingOverlay.jsx`, `ErrorNotice.jsx` — UX helpers
+- `src/styles.css` — Global styling and responsive rules
 
-With this configuration you only need to place the API key in `server/.env` — the front-end will call the proxy automatically and you do not need to configure per-endpoint URLs.
+## Design notes / current state
+- AI/cloud inference calls were removed per project cleanup. The app provides local heuristics instead of calling external AI services.
+- There is no server required to run the core functionality. If you previously used a server proxy, those instructions were intentionally removed.
+- `.gitignore` excludes `node_modules/`, `dist/`, and `.env` to keep the repo clean for submission.
+
+## 200-word approach (required)
+The Social Media Content Analyzer implements a simple, robust pipeline for extracting and analysing textual content from user-supplied documents. For PDFs the app uses the `pdfjs-dist` legacy build to read page text content reliably inside the browser; for scanned images it uses `tesseract.js` to perform client-side OCR with a progress callback to keep the interface responsive. Extracted text is normalized and presented in a scrollable result area alongside a deterministic analysis module that calculates word count, sentence count, and average words per sentence. The heuristics then produce concise editorial suggestions (shorten long sentences, add a CTA near links, expand very short posts) that are actionable and easy for a reviewer or content author to apply. The UI emphasizes accessibility and clarity: a large keyboard-accessible dropzone, clear loading overlays, and dismissible error notices. By keeping processing client-side we avoid shipping secrets or introducing server-side dependencies; this makes the project easy to host on static hosts (GitHub Pages, Vercel) and streamlines review. The code is modular and documented, enabling future extensions such as optional server-side AI integration or improved language detection.
+
+## Submission checklist
+- Repository branch: `main` (public)
+- No `node_modules/`, `dist/`, or `.env` committed
+- README with run instructions and a 200-word approach present
+- App runs locally via `npm install` / `npm run dev`
+
+## Deployment
+- You can host the built site on GitHub Pages, Vercel, or Netlify. After `npm run build` deploy the `dist/` folder or use the platform's automatic build step.
+

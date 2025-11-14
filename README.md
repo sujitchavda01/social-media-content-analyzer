@@ -1,64 +1,47 @@
-﻿# Social Media Content Analyzer
+# Social Media Content Analyzer
 
-Lightweight React + Vite application that extracts text from PDFs and images (via OCR) and provides deterministic, local engagement analysis (word/sentence counts and simple editorial suggestions).
+A lightweight, client‑side React + Vite application that extracts text from PDFs and images (via OCR) and provides simple, deterministic engagement analysis. The project is designed according to assignment requirements — no AI/ML cloud calls, no backend server, and no deployment included.
 
-Repository: https://github.com/sujitchavda01/social-media-content-analyzer
+## Overview
 
-Status: Functional locally — no server required. (If you want hosting, see the Deployment section.)
+The Social Media Content Analyzer processes user‑uploaded PDFs and image files to extract text and generate basic editorial insights such as word count, sentence count, and improvement suggestions. All processing happens locally in the browser, ensuring privacy and making the project easy to review, run, and download.
 
 ## Features
-- PDF parsing (in-browser) using `pdfjs-dist` (legacy build).
-- Image OCR (in-browser) using `tesseract.js` with progress reporting.
-- Local analysis: word/sentence counts, average sentence length, and simple improvement suggestions.
-- Drag-and-drop and file picker interfaces for both PDFs and images.
-- Accessible UI: keyboard-friendly dropzone, loading overlays, and error notices.
+
+* **PDF Parsing (client‑side):** Uses `pdfjs-dist` legacy build to extract text.
+* **Image OCR:** Uses `tesseract.js` for in‑browser OCR with progress feedback.
+* **Deterministic Text Analysis:** Word count, sentence count, average sentence length, and simple improvement hints.
+* **User‑Friendly Uploads:** Drag‑and‑drop + file picker.
+* **Accessible UI:** Keyboard‑friendly dropzone, clear loading states, and error notices.
+* **Entirely Local:** No server, no cloud inference, no AI APIs.
 
 ## Tech Stack
-- React + Vite
-- `pdfjs-dist` for PDF extraction
-- `tesseract.js` for client-side OCR
-- Plain CSS for styling
 
-## Quick start (local)
-1. Install dependencies:
+* React + Vite
+* `pdfjs-dist` (PDF parsing)
+* `tesseract.js` (OCR)
+* Plain CSS for styling
 
-```powershell
+## Quick Start (Local)
+
+```bash
 npm install
-```
-
-2. Run dev server:
-
-```powershell
 npm run dev
-```
-
-3. Build for production:
-
-```powershell
 npm run build
 ```
 
-## Project structure (key files)
-- `src/features/PDFExtractor.jsx` — PDF upload, extraction, and first-page preview
-- `src/features/ImageOCR.jsx` — Image upload and OCR pipeline
-- `src/features/analysis.jsx` — Deterministic analysis and suggestions
-- `src/components/LoadingOverlay.jsx`, `ErrorNotice.jsx` — UX helpers
-- `src/styles.css` — Global styling and responsive rules
+## Project Structure
 
-## Design notes / current state
-- AI/cloud inference calls were removed per project cleanup. The app provides local heuristics instead of calling external AI services.
-- There is no server required to run the core functionality. If you previously used a server proxy, those instructions were intentionally removed.
-- `.gitignore` excludes `node_modules/`, `dist/`, and `.env` to keep the repo clean for submission.
+* `src/features/PDFExtractor.jsx` – PDF upload, extraction, preview
+* `src/features/ImageOCR.jsx` – Image OCR pipeline
+* `src/features/analysis.jsx` – Analysis logic
+* `src/components/LoadingOverlay.jsx`, `ErrorNotice.jsx`
+* `src/styles.css`
 
-## 200-word approach (required)
-The Social Media Content Analyzer implements a simple, robust pipeline for extracting and analysing textual content from user-supplied documents. For PDFs the app uses the `pdfjs-dist` legacy build to read page text content reliably inside the browser; for scanned images it uses `tesseract.js` to perform client-side OCR with a progress callback to keep the interface responsive. Extracted text is normalized and presented in a scrollable result area alongside a deterministic analysis module that calculates word count, sentence count, and average words per sentence. The heuristics then produce concise editorial suggestions (shorten long sentences, add a CTA near links, expand very short posts) that are actionable and easy for a reviewer or content author to apply. The UI emphasizes accessibility and clarity: a large keyboard-accessible dropzone, clear loading overlays, and dismissible error notices. By keeping processing client-side we avoid shipping secrets or introducing server-side dependencies; this makes the project easy to host on static hosts (GitHub Pages, Vercel) and streamlines review. The code is modular and documented, enabling future extensions such as optional server-side AI integration or improved language detection.
+## Approach
 
-## Submission checklist
-- Repository branch: `main` (public)
-- No `node_modules/`, `dist/`, or `.env` committed
-- README with run instructions and a 200-word approach present
-- App runs locally via `npm install` / `npm run dev`
+The Social Media Content Analyzer implements a concise, browser‑based workflow for extracting and analyzing text from PDFs and images. The application relies on `pdfjs-dist` to parse PDF text directly in the browser without external services. For image documents, the app uses `tesseract.js` to perform OCR with live progress updates, ensuring responsive feedback during processing. Once text is extracted, it passes through a deterministic analysis module that calculates word count, sentence boundaries, and average sentence length. Based on these metrics, the app generates straightforward editorial suggestions such as reducing overly long sentences or adding clarity for short posts. All processing occurs locally on the user’s device, improving privacy and simplifying setup since no backend is required. The interface includes accessible drag‑and‑drop zones, loading overlays, and error notices to ensure smooth interaction. The modular code structure allows easy maintenance and potential future expansion while adhering to the assignment requirement of minimal dependencies.
 
 ## Deployment
-- You can host the built site on GitHub Pages, Vercel, or Netlify. After `npm run build` deploy the `dist/` folder or use the platform's automatic build step.
 
+This project does not include deployment as per instructions, but it can be hosted on static platforms like GitHub Pages, Netlify, or Vercel by deploying the `dist/` folder.

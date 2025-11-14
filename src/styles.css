@@ -1,0 +1,156 @@
+:root{
+	--bg:#071124;
+	--panel:#06111a;
+	--card:rgba(255,255,255,0.03);
+	--muted:#94a3b8;
+	--accent:#06b6d4;
+	--accent-2:#0ea5b7;
+	--success:#2dd4bf;
+	--danger:#ff7b7b;
+}
+
+*{box-sizing:border-box}
+body{
+	font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	margin:0;
+	background:linear-gradient(180deg,var(--bg) 0%, #0f1724 100%);
+	color:#e6eef8;
+	min-height:100vh;
+}
+
+
+.app{
+	max-width:1200px;
+	margin:28px auto;
+	padding:20px;
+	background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+	border-radius:14px;
+}
+
+.app-header{
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	gap:18px;
+	margin-bottom:18px;
+}
+.brand h1{margin:0;font-size:1.25rem}
+.brand .tag{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
+
+.mode-switch{display:flex;gap:8px}
+.mode-switch button{
+	padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);
+	background:transparent;color:var(--muted);cursor:pointer;transition:all .14s ease
+}
+.mode-switch button.active{background:var(--accent);color:#062022;box-shadow:0 6px 18px rgba(6,182,212,0.08)}
+.mode-switch button:focus{outline:2px solid rgba(6,182,212,0.12)}
+
+.container{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:stretch}
+.workspace{min-height:420px;display:flex;flex-direction:column}
+.help{display:flex;flex-direction:column;gap:12px}
+
+.card{background:var(--card);padding:14px;border-radius:12px}
+.card.small{padding:10px;font-size:0.95rem}
+
+.extractor.responsive{display:flex;gap:18px;align-items:flex-start}
+.extractor .left{flex:0 0 300px;min-width:220px}
+.extractor .right{flex:1.4;min-width:360px}
+
+/* Overlay & error styles */
+.overlay{
+	position:fixed;left:0;top:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;z-index:1200;
+	background:rgba(0,0,0,0.35);
+}
+.overlay-card{background:#fff;padding:20px 22px;border-radius:10px;display:flex;align-items:center;gap:14px;min-width:260px;box-shadow:0 6px 30px rgba(0,0,0,0.25)}
+.spinner{width:34px;height:34px;border-radius:50%;border:4px solid rgba(0,0,0,0.08);border-top-color:#2563eb;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.overlay-text{display:flex;flex-direction:column}
+.overlay-message{font-weight:600;color:#111;margin-bottom:8px}
+.progress{width:220px;height:8px;background:#eee;border-radius:8px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#2563eb,#60a5fa)}
+
+.error-notice{background:#fff3f2;border:1px solid #ffb4b4;padding:10px;border-radius:8px;margin:12px 0}
+.error-inner{display:flex;justify-content:space-between;align-items:center}
+.error-message{color:#8b1e1e;font-weight:600}
+.error-actions .btn{margin-left:8px}
+
+.controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{background:var(--accent);color:#042028;padding:8px 12px;border-radius:10px;border:none;cursor:pointer}
+.btn.muted{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
+.btn[disabled]{opacity:0.5;cursor:not-allowed}
+.btn:focus{outline:2px solid rgba(6,182,212,0.12)}
+
+/* Stylized back/close button (icon + label) */
+.btn.back{
+	display:inline-flex;
+	align-items:center;
+	gap:8px;
+	padding:8px 10px;
+	border-radius:12px;
+	background:transparent;
+	color:var(--muted);
+	border:1px solid rgba(255,255,255,0.06);
+	transition:all .12s ease;
+}
+.btn.back .icon{width:16px;height:16px;display:inline-block}
+.btn.back .btn-label{font-size:0.95rem}
+.btn.back:hover{background:rgba(6,182,212,0.06);color:var(--accent);border-color:rgba(6,182,212,0.12)}
+.btn.back:active{transform:translateY(1px)}
+
+.dropzone{flex:1;border:2px dashed rgba(255,255,255,0.07);padding:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));min-height:320px;transition:all .12s ease}
+.dropzone:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.45)}
+.dropzone:focus-within{border-color:var(--accent)}
+.dropzone input{display:none}
+.drop-instructions{color:var(--muted);text-align:center}
+
+.preview img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+.extractor .left .preview img{max-height:220px;object-fit:contain}
+.preview h3{margin:8px 0}
+
+.loading{margin-top:12px;color:var(--accent)}
+.error{margin-top:12px;color:var(--danger)}
+
+.result{background:rgba(0,0,0,0.18);padding:12px;border-radius:10px;overflow:auto}
+.result pre{white-space:pre-wrap;color:#dbeafe;font-size:0.95rem}
+.analysis{margin-top:12px}
+
+.ai-controls{display:flex;gap:8px;align-items:center}
+.hf-input{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+.suggestions ul{padding-left:18px;margin:8px 0}
+.muted{color:var(--muted)}
+
+.app-footer{margin-top:20px;color:var(--muted);text-align:center}
+
+/* Responsive */
+@media (max-width: 980px){
+	.container{grid-template-columns:1fr 300px}
+}
+@media (max-width: 800px){
+	.app{margin:12px;padding:14px}
+	.container{grid-template-columns:1fr;}
+	.help{order:2}
+	.workspace{order:1}
+	.app-header{flex-direction:column;align-items:flex-start;gap:10px}
+	.brand .tag{font-size:0.9rem}
+}
+
+/* Mobile: stack extractor panels vertically and improve text area readability */
+@media (max-width: 600px){
+	.extractor.responsive{flex-direction:column;gap:12px}
+	.extractor .left{flex:unset;min-width:unset;width:100%}
+	.extractor .right{flex:unset;min-width:unset;width:100%}
+	.dropzone-large .dropzone{min-height:260px}
+	.extractor .left .preview img{max-height:160px}
+
+	/* Make extracted text easier to read on small screens and prevent layout overflow */
+	.result{max-height:48vh;overflow:auto;padding:12px}
+	.result pre{white-space:pre-wrap;word-break:break-word;font-size:0.95rem}
+	.controls{justify-content:center}
+}
+
+/* Large dropzone when no file uploaded */
+.dropzone-large{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:12px;width:100%;height:100%}
+.dropzone-large .dropzone{height:100%;min-height:420px;width:100%;max-width:none}
+.left .btn[aria-label="Back to home"]{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:8px;border-radius:8px}
+
+
